@@ -3,34 +3,25 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public float bulletsPerSecond = 1;
-    public GameObject bulletPrefab;
-    public Transform shootingLocation;
-
+    Weapon weapon;
     bool wantsToFire = false;
-    float lastFireTime = 0;
 
     public void OnFire(InputValue value)
     {
         wantsToFire = value.Get<float>() > 0.5f;
     }
 
-    public bool CanFire()
+    private void Awake()
     {
-        return Time.time - lastFireTime > 1 / bulletsPerSecond;
+        weapon = GetComponent<Weapon>();
     }
 
-    public void Fire()
-    {
-        lastFireTime = Time.time;
-        Instantiate(bulletPrefab, shootingLocation.position, shootingLocation.rotation);
-    }
 
     private void Update()
     {
-        if (wantsToFire && CanFire())
+        if (wantsToFire && weapon.CanFire())
         {
-            Fire();
+            weapon.Fire();
         }
     }
 }

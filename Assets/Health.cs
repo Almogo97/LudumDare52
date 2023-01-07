@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     public int max = 2;
+    public UnityEvent<int> OnHealthChange;
+    public UnityEvent OnDeath;
 
     private int current;
 
@@ -12,17 +15,12 @@ public class Health : MonoBehaviour
         set
         {
             current = Mathf.Clamp(value, 0, max);
-
+            OnHealthChange.Invoke(current);
             if (current <= 0)
             {
-                Kill();
+                OnDeath.Invoke();
             }
         }
-    }
-
-    public void Kill()
-    {
-        Destroy(gameObject);
     }
 
     private void Start()
