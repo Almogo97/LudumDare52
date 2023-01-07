@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(2);
         while (true)
         {
-            Vector3 spawnPosition = Random.insideUnitCircle * Random.Range(spawnInnerCircle, spawnOuterCircle);
+            Vector3 spawnPosition = Random.insideUnitCircle.normalized * Random.Range(spawnInnerCircle, spawnOuterCircle);
             float angle = Mathf.Atan2(-spawnPosition.y, -spawnPosition.x) * Mathf.Rad2Deg - 90;
             Quaternion desiredRotation = Quaternion.AngleAxis(angle, Vector3.forward);
             Instantiate(prefab, spawnPosition, desiredRotation);
