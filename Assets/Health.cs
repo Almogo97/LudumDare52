@@ -5,6 +5,7 @@ public class Health : MonoBehaviour
 {
     public int max = 2;
     public UnityEvent<int> OnHealthChange;
+    public UnityEvent<int> OnMaxHealthChange;
     public UnityEvent OnDeath;
 
     private int current;
@@ -14,7 +15,7 @@ public class Health : MonoBehaviour
         get => current;
         set
         {
-            current = Mathf.Clamp(value, 0, max);
+            current = Mathf.Clamp(value, 0, Max);
             OnHealthChange.Invoke(current);
             if (current <= 0)
             {
@@ -23,8 +24,19 @@ public class Health : MonoBehaviour
         }
     }
 
+    public int Max
+    {
+        get => max;
+        set
+        {
+            max = value;
+            OnMaxHealthChange.Invoke(max);
+        }
+    }
+
     private void Start()
     {
-        Current = max;
+        OnMaxHealthChange.Invoke(Max);
+        Current = Max;
     }
 }

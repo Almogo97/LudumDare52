@@ -136,3 +136,4 @@ MonoBehaviour:
   secondsToLive: 2
   speed: 20
   damage: 1
+  impulseForce: 5

@@ -35,7 +35,7 @@ public class SuicideMovement : MonoBehaviour
         rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, transform.up * maxSpeed, Time.deltaTime * acceleration);
     }
 
-    void Explode()
+    public void Explode()
     {
         if (Vector2.Distance(transform.position, player.position) < distanceToExplode)
         {

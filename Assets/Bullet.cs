@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     public float secondsToLive = 1f;
     public float speed = 1f;
     public int damage = 1;
+    public float impulseForce = 10;
 
     private void Start()
     {
@@ -22,6 +23,9 @@ public class Bullet : MonoBehaviour
         if (health != null)
         {
             health.Current -= damage;
+
+            collision.GetComponent<Animator>().SetTrigger("Damaged");
+            collision.GetComponent<Rigidbody2D>().AddForce(impulseForce * (collision.transform.position - transform.position), ForceMode2D.Impulse);
         }
         Destroy(gameObject);
     }
