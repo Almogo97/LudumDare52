@@ -29,8 +29,9 @@ public class PickUpPrompt : MonoBehaviour
     {
         if (flowerList.Count > 0)
         {
-            flowerList[0].PickUp();
-            Deactivate(flowerList[0]);
+            var flower = flowerList[0];
+            flower.PickUp();
+            Deactivate(flower);
         }
     }
 }

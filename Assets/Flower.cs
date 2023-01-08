@@ -5,21 +5,25 @@ public abstract class Flower : MonoBehaviour
     public float interactionDistance = 1;
     protected PickUpPrompt pickUp;
 
-    Transform player;
+    protected Transform player;
     bool promptActive;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         pickUp = player.GetComponent<PickUpPrompt>();
+        transform.rotation = Quaternion.identity;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (Vector3.Distance(transform.position, player.position) < interactionDistance)
         {
-            promptActive = true;
-            pickUp.Activate(this);
+            if (!promptActive)
+            {
+                promptActive = true;
+                pickUp.Activate(this);
+            }
         }
         else if (promptActive)
         {

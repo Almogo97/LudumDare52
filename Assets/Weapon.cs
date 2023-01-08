@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
     public float bulletsPerSecond = 1;
     public GameObject bulletPrefab;
     public Transform shootingLocation;
+    public int AddedDmg = 0;
 
     float lastFireTime;
 
@@ -17,6 +18,11 @@ public class Weapon : MonoBehaviour
     {
         lastFireTime = Time.time;
         var instance = Instantiate(bulletPrefab, shootingLocation.position, shootingLocation.rotation);
+        Bullet bullet = instance.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            bullet.damage += AddedDmg;
+        }
         instance.layer = gameObject.layer;
     }
 }

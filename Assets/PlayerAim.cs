@@ -5,17 +5,17 @@ public class PlayerAim : MonoBehaviour
 {
     public new Camera camera;
 
-    Vector3 mouseWorldPosition;
+    Vector2 mouseScreenPosition;
 
     public void OnLook(InputValue value)
     {
-        Vector2 mouseScreenPosition = value.Get<Vector2>();
-        mouseWorldPosition = camera.ScreenToWorldPoint(mouseScreenPosition);
-        mouseWorldPosition.z = 0;
+        mouseScreenPosition = value.Get<Vector2>();
     }
 
     private void Update()
     {
+        Vector3 mouseWorldPosition = camera.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.z = 0;
         transform.up = mouseWorldPosition - transform.position;
     }
 }
