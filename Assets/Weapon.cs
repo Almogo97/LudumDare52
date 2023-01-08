@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform shootingLocation;
 
-    float lastFireTime = 0;
+    float lastFireTime;
 
     public bool CanFire()
     {

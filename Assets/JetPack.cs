@@ -12,6 +12,9 @@ public class JetPack : MonoBehaviour
     public float sustainedEnergyCostPerSecond = 20f;
     public Slider slider;
     PlayerMovement movement;
+    public ParticleSystem sustainedParticleSystem;
+    public ParticleSystem burstParticleSystem;
+    public Animator jetPackSliderAnimator;
 
     bool isHolding;
     float holdTimer;
@@ -43,11 +46,15 @@ public class JetPack : MonoBehaviour
             if (CurrentEnergy > 0)
             {
                 movement.maxSpeed = newSpeed;
+                if (!sustainedParticleSystem.isPlaying)
+                {
+                    sustainedParticleSystem.Play();
+                }
             }
             else
             {
                 movement.maxSpeed = oldSpeed;
-                Debug.Log("Cannot burst, not enough energy.");
+                sustainedParticleSystem.Stop();
             }
         }
 
@@ -66,6 +73,7 @@ public class JetPack : MonoBehaviour
         else
         {
             movement.maxSpeed = oldSpeed;
+            sustainedParticleSystem.Stop();
         }
     }
 
@@ -75,10 +83,11 @@ public class JetPack : MonoBehaviour
         {
             CurrentEnergy -= burstEnergyCost;
             movement.rigidbody.AddForce(movement.inputDirection * speedBurst, ForceMode2D.Impulse);
+            burstParticleSystem.Play();
         }
         else
         {
-            Debug.Log("Cannot burst, not enough energy.");
+            jetPackSliderAnimator.SetTrigger("Empty");
         }
     }
 }

@@ -39,7 +39,7 @@ public class SuicideMovement : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, player.position) < distanceToExplode)
         {
-            player.GetComponent<Health>().Current = damage;
+            player.GetComponent<Health>().Current -= damage;
         }
         Destroy(gameObject);
     }
